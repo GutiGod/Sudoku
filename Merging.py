@@ -30,21 +30,28 @@ grid(yertle, N, Size)
 
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 last = 8
-lon = 12
-lar = 5
+lon = 11
+lar = 4
+column = 0
 for _ in range (9):
-    numind = random.randint(0, last)
-    h = (numbers[numind])
-    print (h)
-    yertle.penup()
-    yertle.goto(-N * Size/2 + lon, -N * Size/2 + lar)
-    yertle.pendown()
-    yertle.write(h, move = False, font= ("Arial", 15, "normal"))
-    lon = lon + 30
-    numbers.remove(h)
-    last = last - 1 
-    if last < 1:
-        continue
-    
+    for _ in range (9):
+        numind = random.randint(0, last)
+        print (numind)
+        h = (numbers[numind])
+        print (h)
+        yertle.penup()
+        yertle.goto(-N * Size/2 + lon, -N * Size/2 + lar)
+        yertle.pendown()
+        yertle.write(h, move = False, font= ("Arial", 15, "normal"))
+        lon = lon + Size
+        numbers.remove(h)
+        last = last - 1 
+        if last < 1:
+            continue
+    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    last = 8
+    lar = lar + Size  
+    lon = 11    
 screen.exitonclick()
+
 
