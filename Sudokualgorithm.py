@@ -1,32 +1,42 @@
-import random
+from random import randint, shuffle
 
-laps = 0
-subgridnum = 0
-subgrid = {0: 0 , 1: 0 , 2: 0 , 3: 0 , 4: 0 , 5: 0 , 6: 0 , 7: 0 , 8: 0}
-numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-subgriddic = {0: 0, 1:0 , 2:0 , 3:0 , 4:0 , 5:0 , 6:0 , 7:0 , 8:0 }
+numbers = []
+for _ in range(9):
+    numbers.append([0, 0, 0, 0, 0, 0, 0, 0, 0])
 
-def resetnums(numbers, latnums1, latnums2, latnums3, laps):
-    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    latnums1 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    latnums2 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    latnums3 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    laps = 0
+print (numbers)
 
-def numpull(numbers, laps, subgridnum):
-    for _ in range(9):
-        laps = 0
-        numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-        subgrid = {0: 0 , 1: 0 , 2: 0 , 3: 0 , 4: 0 , 5: 0 , 6: 0 , 7: 0 , 8: 0}
-        for _ in range (9):
-            num = random.choice(numbers)
-            numbers.remove(num)
-            subgrid[laps] = num
-            laps = laps + 1    
-        subgriddic[subgridnum] = subgrid  
-        subgridnum = subgridnum + 1
-        print (subgrid)
-
-    print (subgriddic)
-
-numpull(0,0,0)
+numberlist = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+for i in range(0, 81):
+    row = (i // 9)
+    col = (i % 9)
+    if numbers[row][col] == 0:
+        shuffle(numberlist)
+    for num in numberlist:
+        if num not in numbers[row]:
+            if num not in (numbers[0][col], numbers[1][col], numbers[2][col], numbers[3][col], numbers[4][col], numbers[5][col], numbers[6][col], numbers[7][col], numbers[8][col]):
+                subgrid = []
+                if row < 3:
+                    if col < 3:
+                        subgrid = [numbers[i][0:3] for i in range (0,3)]
+                    elif col < 6: 
+                        subgrid = [numbers[i][3:6] for i in range (0,3)]
+                    else:
+                        subgrid = [numbers[i][6:9] for i in range (0,3)]    
+                elif row < 6:
+                    if col < 3:
+                        subgrid = [numbers[i][0:3] for i in range (3,6)]
+                    elif col < 6: 
+                        subgrid = [numbers[i][3:6] for i in range (3,6)]
+                    else:
+                        subgrid = [numbers[i][6:9] for i in range (3,6)]
+                else:
+                    if col < 3:
+                        subgrid = [numbers[i][0:3] for i in range (6,9)]
+                    elif col < 6: 
+                        subgrid = [numbers[i][3:6] for i in range (6,9)]
+                    else:
+                        subgrid = [numbers[i][6:9] for i in range (6,9)]   
+                if num not in (subgrid[0] + subgrid[1] + subgrid[2]):
+                    numbers[row][col] = num
+print (numbers)                                 
